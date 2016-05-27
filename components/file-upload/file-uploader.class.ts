@@ -276,7 +276,7 @@ export class FileUploader {
 
   protected _xhrTransport(item:any):any {
     let xhr = item._xhr = new XMLHttpRequest();
-    let form = new FormData();
+    // let form = new FormData();
     this._onBeforeUploadItem(item);
     // todo
     /*item.formData.map(obj => {
@@ -287,9 +287,9 @@ export class FileUploader {
     if (typeof item._file.size !== 'number') {
       throw new TypeError('The file specified is no longer valid');
     }
-    this._onBuildItemForm(item, form);
+    // this._onBuildItemForm(item, form);
 
-    form.append(item.alias, item._file, item.file.name);
+    // form.append(item.alias, item._file, item.file.name);
     xhr.upload.onprogress = (event:any) => {
       let progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
       this._onProgressItem(item, progress);
@@ -328,7 +328,7 @@ export class FileUploader {
     if (this.authToken) {
       xhr.setRequestHeader('Authorization', this.authToken);
     }
-    xhr.send(form);
+    xhr.send(item._file);
     this._render();
   }
 
@@ -434,10 +434,10 @@ export class FileUploader {
     this.onBeforeUploadItem(item);
   }
 
-  private _onBuildItemForm(item:any, form:any):void {
-    item._onBuildForm(form);
-    this.onBuildItemForm(item, form);
-  }
+  // private _onBuildItemForm(item:any, form:any):void {
+  //   item._onBuildForm(form);
+  //   this.onBuildItemForm(item, form);
+  // }
 
   private _onProgressItem(item:any, progress:any):void {
     let total = this._getTotalProgress(progress);
